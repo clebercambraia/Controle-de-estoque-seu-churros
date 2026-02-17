@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Churros Litoral SC - Gestão Profissional</title>
+    <style>
+        :root { 
+            --vinho-retro: #6d1a1a;
+            --marrom-couro: #3d2b1f; 
+            --bege-papel: #f4ece1;
+            --creme-claro: #fffaf0;
+            --ouro-velho: #a6894a;
+            --vermelho-alerta: #ff0000;
+            --verde-lousa: #2d5a27;
+            --azul-relatorio: #2c3e50;
+        }
+
+        * { box-sizing: border-box; transition: all 0.2s ease; }
+        
+        body { 
+            font-family: 'Georgia', serif; 
+            background-color: var(--bege-papel); 
+            margin: 0; padding-bottom: 50px; color: var(--marrom-couro);
+        }
+        
+        /* --- CABEÇALHO PROFISSIONAL --- */
+        header { 
+            background-color: var(--marrom-couro); 
+            padding: 25px 0;
+            text-align: center; 
+            border-bottom: 4px double var(--ouro-velho);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .brand-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo-main {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--ouro-velho);
+            border-radius: 50%;
+            padding: 5px;
+            background: var(--creme-claro);
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+        .brand-name {
+            font-family: 'Georgia', serif;
+            color: var(--ouro-velho);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        .brand-sub {
+            color: var(--bege-papel);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0.9;
+        }
+
+        .header-divider {
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--ouro-velho), transparent);
+            margin: 8px 0;
+        }
+
+        /* --- LAYOUT --- */
+        .container { width: 94%; max-width: 500px; margin: 15px auto 0; }
+
+        .card { background: var(--creme-claro); padding: 15px; border-radius: 4px; border: 1px solid #d3c5ae; margin-bottom: 20px; }
+        
+        .total-card { text-align: center; border: 2px solid var(--ouro-velho); }
+        .total-card h2 { margin: 5px 0; font-size: 2rem; color: var(--vinho-retro); font-family: 'Courier New', monospace; }
+
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; }
+        input { width: 100%; padding: 10px; background: #fff; border: 1px solid var(--marrom-couro); margin-bottom: 10px; font-size: 1rem; }
+
+        .btn-principal { background: var(--marrom-couro); color: var(--ouro-velho); border: 1px solid var(--ouro-velho); padding: 12px; width: 100%; cursor: pointer; text-transform: uppercase; font-weight: bold; }
+
+        /* --- LISTA --- */
+        ul { list-style: none; padding: 0; }
+        li { background: var(--creme-claro); margin-bottom: 10px; padding: 12px; border: 1px solid #d3c5ae; border-left: 5px solid var(--marrom-couro); }
+        .item-header { display: flex; align-items: center; justify-content: space-between; }
+        .controles-rapidos { display: flex; align-items: center; gap: 8px; }
+        .btn-ajuste { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--marrom-couro); background: #fff; cursor: pointer; font-weight: bold; }
+        .financeiro-badge { font-size: 0.75rem; color: #666; margin-top: 8px; font-style: italic; }
+
+        /* --- RELATÓRIOS --- */
+        .relatorio-box { background: #1a1a1a; color: #00ff41; font-family: 'Courier New', monospace; padding: 10px; font-size: 0.65rem; max-height: 180px; overflow-y: auto; border-radius: 4px; margin: 10px 0; border: 1px solid #444; line-height: 1.4; }
+        .btn-whats-inventario { background: var(--verde-lousa); color: white; border: none; padding: 12px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-bottom: 8px; }
+        .btn-whats-movimento { background: var(--azul-relatorio); color: white; border: none; padding: 12px; width: 100%; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-bottom: 8px; }
+        .btn-danger { background: #8b0000; color: white; border: none; padding: 8px; cursor: pointer; font-size: 0.65rem; text-transform: uppercase; width: 100%; }
+
+        @keyframes alertaPiscar { 0%, 100% { border-color: #d3c5ae; } 50% { border-color: var(--vermelho-alerta); box-shadow: 0 0 10px rgba(255,0,0,0.3); } }
+        .item-critico { border: 2px solid var(--vermelho-alerta) !important; animation: alertaPiscar 1.2s infinite; }
+        .qtd-critica { color: var(--vermelho-alerta); font-weight: bold; }
+    </style>
+</head>
+<body onclick="desbloquearAudio()">
+
+<audio id="somSirene"><source src="https://assets.mixkit.co/active_storage/sfx/951/951-preview.mp3" type="audio/mpeg"></audio>
+
+<header>
+    <div class="brand-container">
+        <img src="logo.jpg" class="logo-main" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3449/3449339.png'">
+        <h1 class="brand-name">Seu Churros Litoral SC</h1>
+        <div class="header-divider"></div>
+        <span class="brand-sub">Gestão de Inventário & Patrimônio</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="card total-card">
+        <label>Patrimônio Total (R$)</label>
+        <h2 id="valorTotalGeral">R$ 0,00</h2>
+    </div>
+
+    <div class="card form-box">
+        <label>Entrada de Produto</label>
+        <input type="text" id="nome" placeholder="Ex: Doce de Leite">
+        <div style="display: flex; gap: 10px;">
+            <input type="number" id="quantidade" placeholder="Qtd" style="flex:1">
+            <input type="number" id="valor" step="0.01" placeholder="Preço Unit. R$" style="flex:1">
+        </div>
+        <button class="btn-principal" onclick="salvar()">Registrar Entrada</button>
+    </div>
+
+    <ul id="listaEstoque"></ul>
+
+    <div class="card">
+        <label>Histórico de Movimentação (Data & Hora)</label>
+        <div class="relatorio-box" id="logMovimentacao">Aguardando registros...</div>
+        
+        <button class="btn-whats-inventario" onclick="enviarSoInventario()"> Enviar Inventário (Saldo Atual)</button>
+        <button class="btn-whats-movimento" onclick="enviarSoMovimentacao()"> Enviar Histórico de Movimentos</button>
+        <button class="btn-danger" onclick="zerarRelatorio()">Limpar Histórico de Texto</button>
+    </div>
+</div>
+
+<script>
+    let estoque = JSON.parse(localStorage.getItem('ch_estoque_v17')) || [];
+    let valorTotal = parseFloat(localStorage.getItem('ch_patrimonio_v17')) || 0;
+    let movimentacoes = JSON.parse(localStorage.getItem('ch_log_v17')) || [];
+    let audioIniciado = false;
+
+    function formatar(v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
+    
+    function desbloquearAudio() { 
+        if (!audioIniciado) { 
+            document.getElementById('somSirene').play().then(() => { 
+                document.getElementById('somSirene').pause(); 
+                audioIniciado = true; 
+            }).catch(()=>{}); 
+        } 
+    }
+
+    function registrarLog(produto, qtd, tipo) {
+        const agora = new Date();
+        const dataStr = agora.toLocaleDateString('pt-BR');
+        const horaStr = agora.getHours().toString().padStart(2, '0') + ":" + agora.getMinutes().toString().padStart(2, '0');
+        const sinal = qtd > 0 ? "+" : "";
+        
+        movimentacoes.push(`[${dataStr} ${horaStr}] ${produto}: ${sinal}${qtd} (${tipo})`);
+        atualizarTela();
+    }
+
+    function atualizarTela() {
+        const lista = document.getElementById('listaEstoque');
+        document.getElementById('valorTotalGeral').innerText = formatar(valorTotal);
+        
+        lista.innerHTML = estoque.map((item, index) => {
+            const isCritico = item.quantidade < 4;
+            return `
+                <li class="${isCritico ? 'item-critico' : ''}">
+                    <div class="item-header">
+                        <div style="display:flex; align-items:center">
+                            <input type="checkbox" class="chk-envio" data-index="${index}" style="width:18px; height:18px">
+                            <span class="item-titulo" style="margin-left:10px">${item.nome}</span>
+                        </div>
+                        <div class="controles-rapidos">
+                            <button class="btn-ajuste" onclick="ajustarQtd(${index}, -1)">-</button>
+                            <div class="item-qtd-badge">
+                                <span class="${isCritico ? 'qtd-critica' : ''}" style="font-size:1.2rem; display:block; text-align:center">${item.quantidade}</span>
+                            </div>
+                            <button class="btn-ajuste" onclick="ajustarQtd(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="financeiro-badge">Unit: ${formatar(item.valor)} | Subtotal: ${formatar(item.quantidade * item.valor)}</div>
+                </li>`;
+        }).join('');
+
+        const logBox = document.getElementById('logMovimentacao');
+        logBox.innerHTML = movimentacoes.length > 0 ? movimentacoes.join('<br>') : "Vazio.";
+        logBox.scrollTop = logBox.scrollHeight;
+
+        localStorage.setItem('ch_estoque_v17', JSON.stringify(estoque));
+        localStorage.setItem('ch_patrimonio_v17', valorTotal);
+        localStorage.setItem('ch_log_v17', JSON.stringify(movimentacoes));
+    }
+
+    function ajustarQtd(index, mudanca) {
+        const item = estoque[index];
+        if (mudanca > 0) valorTotal += item.valor;
+        
+        item.quantidade += mudanca;
+        if (item.quantidade < 0) item.quantidade = 0;
+
+        registrarLog(item.nome, mudanca, mudanca > 0 ? "Ajuste +" : "Saída/Baixa");
+
+        if (item.quantidade < 4 && mudanca < 0) {
+            document.getElementById('somSirene').play();
+            if(navigator.vibrate) navigator.vibrate(300);
+        }
+        atualizarTela();
+    }
+
+    function salvar() {
+        const n = document.getElementById('nome').value.trim();
+        const q = parseFloat(document.getElementById('quantidade').value);
+        const v = parseFloat(document.getElementById('valor').value) || 0;
+
+        if (!n || isNaN(q)) return alert("Preencha o nome e a quantidade.");
+
+        const idx = estoque.findIndex(i => i.nome.toLowerCase() === n.toLowerCase());
+        if (idx !== -1) {
+            estoque[idx].quantidade += q;
+            valorTotal += (q * v);
+            if(v > 0) estoque[idx].valor = v;
+        } else {
+            estoque.push({ nome: n, quantidade: q, valor: v });
+            valorTotal += (q * v);
+        }
+
+        registrarLog(n, q, "Registro de Entrada");
+        document.getElementById('nome').value = ''; 
+        document.getElementById('quantidade').value = ''; 
+        document.getElementById('valor').value = '';
+        atualizarTela();
+    }
+
+    function zerarRelatorio() {
+        if(confirm("Deseja limpar as mensagens do histórico? O estoque e o patrimônio acumulado NÃO serão mexidos.")) {
+            movimentacoes = [];
+            atualizarTela();
+        }
+    }
+
+    function enviarSoInventario() {
+        const selecionados = document.querySelectorAll('.chk-envio:checked');
+        if(selecionados.length === 0) return alert("Marque os produtos que deseja enviar!");
+
+        let msg = `* INVENTÁRIO - SEU CHURROS LITORAL SC*\n`;
+        msg += ` Data: ${new Date().toLocaleDateString('pt-BR')}\n`;
+        msg += `------------------------------------\n`;
+        selecionados.forEach(chk => {
+            const i = estoque[chk.getAttribute('data-index')];
+            msg += `${i.quantidade < 4 ? '' : ''} *${i.nome.toUpperCase()}*: ${i.quantidade} un\n`;
+        });
+        msg += `------------------------------------\n`;
+        msg += ` *PATRIMÔNIO:* ${formatar(valorTotal)}`;
+        
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function enviarSoMovimentacao() {
+        if(movimentacoes.length === 0) return alert("Não há registros no histórico!");
+
+        let msg = `* MOVIMENTOS - SEU CHURROS LITORAL SC*\n`;
+        msg += `------------------------------------\n`;
+        msg += movimentacoes.join('\n');
+        msg += `\n------------------------------------\n`;
+        msg += `_Relatório gerado pelo sistema._`;
+        
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    atualizarTela();
+</script>
+</body>
+</html>
